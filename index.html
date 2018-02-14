@@ -13,16 +13,40 @@
   <script>
     var button = document.querySelector('button');
     var audio = document.querySelector('audio');
+    var play = function () {
+      audio.volume = .2;
+      audio.play();
+      button.innerHTML = '🔊';
+      if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'playing';
+    };
+    var pause = function () {
+      audio.pause();
+      button.innerHTML = '🔇';
+      if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'paused';
+    };
     button.onclick = function () {
       if (audio.paused) {
-        audio.volume = .2;
-        audio.play();
-        button.innerHTML = '🔊';
+        play();
       } else {
-        audio.pause();
-        button.innerHTML = '🔇';
+        pause();
       }
     };
+    if ('mediaSession' in navigator){
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: 'Take Me Hand',
+        artist: 'DAISHI DANCE',
+        album: 'WONDER Tourism',
+        artwork: [{src: 'qier.jpg'}]
+      });
+      navigator.mediaSession.setActionHandler('play', play);
+      navigator.mediaSession.setActionHandler('pause', pause);
+      navigator.mediaSession.setActionHandler('seekbackward', function() {
+        audio.currentTime -= 5;
+      });
+      navigator.mediaSession.setActionHandler('seekforward', function() {
+        audio.currentTime += 5;
+      });
+    }
   </script>
   <style>
     html,
