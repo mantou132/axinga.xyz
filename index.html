@@ -25,6 +25,7 @@
       button.innerHTML = '🔇';
       if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'paused';
     };
+    audio.onended = pause;
     button.onclick = function () {
       if (audio.paused) {
         play();
