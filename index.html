@@ -15,9 +15,10 @@
     var audio = document.querySelector('audio');
     var play = function () {
       audio.volume = .2;
-      audio.play();
-      button.innerHTML = '🔊';
-      if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'playing';
+      audio.play().then(function () {
+        button.innerHTML = '🔊';
+        if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'playing';
+      }).catch(alert);
     };
     var pause = function () {
       audio.pause();
