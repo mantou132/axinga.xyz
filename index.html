@@ -9,10 +9,20 @@
 <body>
   <img src="qier.jpg" alt="take me hand">
   <audio src="take me hand.mp3"></audio>
+  <button>🔇</button>
   <script>
+    var button = document.querySelector('button');
     var audio = document.querySelector('audio');
-    audio.volume = .2;
-    audio.play();
+    button.onclick = function () {
+      if (audio.paused) {
+        audio.volume = .2;
+        audio.play();
+        button.innerHTML = '🔊';
+      } else {
+        audio.pause();
+        button.innerHTML = '🔇';
+      }
+    };
   </script>
   <style>
     html,
@@ -28,6 +38,18 @@
     }
     img {
       max-width: 90%;
+    }
+    button,
+    button:active {
+      padding: 0;
+      margin: 0;
+      font-size: 2em;
+      position: absolute;
+      bottom: 1em;
+      left: 1em;
+      background: transparent;
+      border: none;
+      cursor: pointer;
     }
   </style>
 </body>
